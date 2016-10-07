@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <title>Web Services Survey</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" >
+  <script src="{% static 'jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+
+{{ ip }}
+
+<div class="container">
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+
+<form action="{% url 'survey_app:vote' %}" method="post">{% csrf_token %}
+
+    <h3>1. {{ questions.question_text }}</h3>
+
+        {% csrf_token %}
+        {% for choice in questions.choice_set.all %}
+        <input type="radio" name="question1" id="choice{{ forloop.counter }}" value="{{ choice.id }}" {% if  choice.choice_text   == radio_checker1 %}checked="checked"{% endif %}/>
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+        {% endfor %}
+
+    <h3>2. {{ questions2.question_text }}</h3>
+        {% csrf_token %}
+        {% for choice in questions2.choice_set.all %}
+        <input type="radio" name="question2" id="choice{{ forloop.counter }}" value="{{ choice.id }}" {% if  choice.choice_text  == radio_checker2 %}checked="checked"{% endif %}/>
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+        {% endfor %}
+
+
+    <h3>3. {{ questions3.question_text }}</h3>
+        {% csrf_token %}
+        {% for choice in questions3.choice_set.all %}
+        <input type="radio" name="question3" id="choice{{ forloop.counter }}" value="{{ choice.id }}" {% if  choice.choice_text  == radio_checker3 %}checked="checked"{% endif %}/>
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+        {% endfor %}
+
+    <h3>4. {{ questions4.question_text }}</h3>
+        {% csrf_token %}
+        {% for choice in questions4.choice_set.all %}
+        <input type="radio" name="question4" id="choice{{ forloop.counter }}" value="{{ choice.id }}" {% if  choice.choice_text  == radio_checker4 %}checked="checked"{% endif %}/>
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label><br />
+        {% endfor %}
+
+
+    <h3>5. {{ questions5.question_text }}</h3>
+
+    <textarea name="content" rows="10" cols="100">{{ content_checker }}</textarea><br>
+
+
+
+<input type="submit" value="Submit" />
+</form>
+
+
+    </div>
